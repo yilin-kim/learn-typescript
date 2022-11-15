@@ -29,3 +29,15 @@ function askSomeone(someone: Developer | Person) {
   someone.name;
   // someone.skill // error
 }
+// askSomeone({ name: "디벨로퍼", skill: "웹 개발" });
+// askSomeone({ name: "캡틴", age: 100 });
+
+// Intersection Type
+// typeguard 필요 없음
+// 개발자의 속성과 사람의 속성을 모두 가지는 새로운 유형을 요구
+function askSomeone2(someone: Developer & Person) {
+  someone.name;
+  someone.skill;
+}
+// askSomeone2({ name: "캡틴", age: 100 }); //error
+askSomeone2({ name: "디벨로퍼", skill: "웹 개발", age: 100 });
