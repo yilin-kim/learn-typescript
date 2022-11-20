@@ -27,3 +27,11 @@ function logText<T>(text: T): T {
 const abc = logText<string>("abc");
 abc.split("");
 const isLog = logText<boolean>(true);
+
+// 인터페이스에서 제네릭을 선언하는 방법
+interface Dropdown<T> {
+  value: T;
+  selected: boolean;
+}
+
+const obj: Dropdown<string> = { value: "abc", selected: false };
