@@ -6,6 +6,8 @@
 // logText("하이");
 // logText(true);
 
+import { textChangeRangeIsUnchanged } from "typescript";
+
 // 타입을 받아들이기 위해 중복으로 함수를 선언할 수 있지만 문제가 많고
 // 유니온 타입을 사용해도...
 // function logText(text: string | number) {
@@ -33,5 +35,40 @@ interface Dropdown<T> {
   value: T;
   selected: boolean;
 }
-
 const obj: Dropdown<string> = { value: "abc", selected: false };
+
+// 제네릭의 타입 제한
+function logTextLength<T>(text: T[]): T[] {
+  console.log(text.length);
+  text.forEach(function (text) {
+    console.log(text);
+  });
+  return text;
+}
+logTextLength<string>(["hi", "abc"]);
+
+// 제네릭 타입 제한 2 - 정의된 타입 이용하기
+interface LengthType {
+  length: number;
+}
+function logTextLength2<T extends LengthType>(text: T): T {
+  text.length;
+  return text;
+}
+logTextLength2<string>("a");
+logTextLength2({ length: 10 });
+
+// 제네릭 타입 제한 3 - keyof
+interface ShoppingItem {
+  name: string;
+  price: number;
+  stock: number;
+}
+
+// ShoppingItem의 key 중 한 가지만 받을 수 있도록 제한
+function getShoppingItemOption<T extends keyof ShoppingItem>(itemOption: T): T {
+  return itemOption;
+}
+getShoppingItemOption("name");
+// getShoppingItemOption(10);
+// getShoppingItemOption<string>("a");
