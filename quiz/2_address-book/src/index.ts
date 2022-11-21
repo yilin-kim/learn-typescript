@@ -1,4 +1,5 @@
 interface PhoneNumberDictionary {
+  // 어떤 키가 올지 모르기 때문에 index signature를 사용한다.
   [phone: string]: {
     num: number;
   };
@@ -59,26 +60,28 @@ class AddressBook {
   // TODO: 아래 변수의 타입을 지정해보세요.
   contacts:Contact[] = [];
 
+  // constructor는 타입 정의 안해도 된다.
   constructor() {
     this.fetchData();
   }
 
-  fetchData() {
+  // 메소드
+  fetchData(): void {
     fetchContacts().then((response) => {
       this.contacts = response;
     });
   }
 
   /* TODO: 아래 함수들의 파라미터 타입과 반환 타입을 지정해보세요 */
-  findContactByName(name: string) {
+  findContactByName(name: string): Contact[] {
     return this.contacts.filter((contact) => contact.name === name);
   }
 
-  findContactByAddress(address: string) {
+  findContactByAddress(address: string): Contact[] {
     return this.contacts.filter((contact) => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber: number, phoneType: string) {
+  findContactByPhone(phoneNumber: number, phoneType: string): Contact[] {
     return this.contacts.filter(
       (contact) => contact.phones[phoneType].num === phoneNumber
     );
